@@ -4,170 +4,719 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio - Ravonjiniaina Mahaliana</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --primary: #0f172a;
-            --accent: #f59e0b;
-            --text-light: #f8fafc;
-            --card-bg: rgba(30, 41, 59, 0.7);
+            --primary: #0a0f1e;
+            --secondary: #111827;
+            --accent: #e8a020;
+            --accent2: #c0392b;
+            --text: #f0f4ff;
+            --text-muted: #8899bb;
+            --card-bg: rgba(17, 24, 39, 0.85);
+            --border: rgba(232, 160, 32, 0.2);
         }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
 
         body {
-            margin: 0;
-            font-family: 'Open Sans', sans-serif;
+            font-family: 'DM Sans', sans-serif;
             background-color: var(--primary);
-            color: var(--text-light);
-            scroll-behavior: smooth;
+            color: var(--text);
+            overflow-x: hidden;
         }
 
-        /* HERO SECTION */
+        /* ── BACKGROUND TEXTURE ── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 80% 60% at 20% 10%, rgba(232,160,32,0.06) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 50% at 80% 80%, rgba(192,57,43,0.05) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 60px;
+            background: rgba(10,15,30,0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            color: var(--accent);
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--accent); }
+
+        /* ── HERO ── */
         .hero {
-            height: 90vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: radial-gradient(circle at top right, #1e293b, #0f172a);
             text-align: center;
-            padding: 0 20px;
+            padding: 120px 20px 80px;
+            position: relative;
+            z-index: 1;
         }
 
-        .profile-border {
-            width: 180px;
-            height: 180px;
-            margin: 0 auto 20px;
-            padding: 5px;
-            background: linear-gradient(45deg, var(--accent), #ef4444);
+        .hero-content {
+            max-width: 700px;
+            animation: fadeUp 1s ease both;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .profile-ring {
+            width: 160px;
+            height: 160px;
+            margin: 0 auto 28px;
+            position: relative;
+        }
+
+        .profile-ring::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
             border-radius: 50%;
-            box-shadow: 0 0 30px rgba(245, 158, 11, 0.3);
+            background: conic-gradient(var(--accent), var(--accent2), var(--accent));
+            animation: spin 6s linear infinite;
         }
 
-        .profile-img {
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .profile-ring img {
+            position: relative;
             width: 100%;
             height: 100%;
             border-radius: 50%;
             object-fit: cover;
             border: 4px solid var(--primary);
+            z-index: 1;
         }
 
-        h1 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 3rem;
-            margin: 10px 0;
-        }
-
-        .role {
-            font-size: 1.1rem;
-            color: var(--accent);
-            text-transform: uppercase;
+        .hero-tag {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
             letter-spacing: 3px;
-            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            padding: 6px 16px;
+            border-radius: 50px;
+            margin-bottom: 20px;
+            animation: fadeUp 1s 0.2s ease both;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-weight: 900;
+            line-height: 1.15;
+            margin-bottom: 16px;
+            animation: fadeUp 1s 0.3s ease both;
+        }
+
+        .hero h1 span { color: var(--accent); }
+
+        .hero-subtitle {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            animation: fadeUp 1s 0.4s ease both;
         }
 
         .contact-bar {
-            margin-top: 25px;
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 16px;
             flex-wrap: wrap;
+            animation: fadeUp 1s 0.5s ease both;
         }
 
         .contact-item {
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            transition: 0.3s;
             display: flex;
             align-items: center;
             gap: 8px;
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 10px 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 50px;
+            transition: all 0.3s;
+            background: rgba(255,255,255,0.03);
         }
 
-        .contact-item:hover { color: var(--accent); }
+        .contact-item:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(232,160,32,0.08);
+        }
 
-        /* SECTIONS */
-        .container {
+        .contact-item.whatsapp:hover {
+            border-color: #25D366;
+            color: #25D366;
+            background: rgba(37,211,102,0.08);
+        }
+
+        /* ── SCROLL INDICATOR ── */
+        .scroll-hint {
+            position: absolute;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: fadeUp 1s 0.8s ease both;
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--accent), transparent);
+            animation: scrollPulse 2s ease infinite;
+        }
+
+        @keyframes scrollPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* ── SECTIONS ── */
+        section {
+            position: relative;
+            z-index: 1;
+            padding: 100px 20px;
             max-width: 1200px;
-            margin: -50px auto 80px;
-            padding: 0 20px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 12px;
         }
 
         .section-title {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 2rem;
-            color: var(--accent);
-            margin-bottom: 30px;
-            border-left: 5px solid var(--accent);
-            padding-left: 15px;
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 700;
+            margin-bottom: 50px;
+            line-height: 1.2;
         }
 
+        .section-title span { color: var(--accent); }
+
+        /* ── DIVIDER ── */
+        .divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--border), transparent);
+            margin: 0 auto;
+        }
+
+        /* ── CARDS ── */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            margin-bottom: 60px;
-            align-items: start;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
         }
 
         .card {
             background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 20px;
-            padding: 30px;
-            transition: 0.4s;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
         }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(to right, var(--accent), var(--accent2));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .card:hover::before { transform: scaleX(1); }
 
         .card:hover {
-            transform: translateY(-10px);
-            border-color: var(--accent);
+            transform: translateY(-6px);
+            border-color: rgba(232,160,32,0.4);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
 
-        .card h3 { color: var(--accent); margin-top: 0; }
+        .card-icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(232,160,32,0.12);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: var(--accent);
+            margin-bottom: 16px;
+        }
 
-        /* IMAGES CONTROL */
+        .card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            color: var(--text);
+            margin-bottom: 14px;
+        }
+
+        .card ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .card ul li {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            line-height: 1.5;
+        }
+
+        .card ul li::before {
+            content: '→';
+            color: var(--accent);
+            font-size: 0.8rem;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        /* ── IMAGES ── */
         .main-img {
             width: 100%;
-            border-radius: 12px;
-            margin-top: 15px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            border-radius: 10px;
+            margin-top: 16px;
+            object-fit: cover;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            transition: transform 0.4s;
         }
+
+        .main-img:hover { transform: scale(1.02); }
 
         .mini-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-top: 15px;
+            gap: 8px;
+            margin-top: 16px;
         }
 
         .mini-img {
             width: 100%;
-            height: 80px;
+            height: 75px;
             object-fit: cover;
-            border-radius: 6px;
-            transition: 0.3s;
+            border-radius: 8px;
+            transition: all 0.3s;
+            cursor: pointer;
         }
 
-        .mini-img:hover { transform: scale(1.1); z-index: 2; }
+        .mini-img:hover {
+            transform: scale(1.08);
+            z-index: 2;
+            position: relative;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+        }
 
+        .quote {
+            font-style: italic;
+            font-size: 0.88rem;
+            color: var(--accent);
+            margin-top: 14px;
+            padding-left: 12px;
+            border-left: 2px solid var(--accent);
+        }
+
+        /* ── PDF CARD ── */
+        .pdf-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.4s;
+        }
+
+        .pdf-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(232,160,32,0.4);
+        }
+
+        .pdf-header {
+            height: 140px;
+            background: linear-gradient(135deg, rgba(232,160,32,0.15), rgba(192,57,43,0.15));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--accent);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .pdf-body {
+            padding: 24px;
+            text-align: center;
+        }
+
+        .pdf-body h3 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .pdf-body p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 11px 24px;
+            background: var(--accent);
+            color: #0a0f1e;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.82rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background: #f5b42a;
+            box-shadow: 0 6px 20px rgba(232,160,32,0.4);
+            transform: translateY(-2px);
+        }
+
+        /* ── FOOTER ── */
         footer {
+            position: relative;
+            z-index: 1;
             text-align: center;
             padding: 60px 20px;
-            background: #070b14;
-            opacity: 0.8;
+            border-top: 1px solid var(--border);
+            background: rgba(5, 8, 15, 0.8);
+        }
+
+        footer p { color: var(--text-muted); font-size: 0.85rem; line-height: 2; }
+        footer strong { color: var(--text); }
+        footer .copy { font-size: 0.75rem; opacity: 0.4; margin-top: 10px; }
+
+        /* ── PARTICLES CANVAS ── */
+        #particles {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ── CUSTOM CURSOR ── */
+        .cursor {
+            width: 12px; height: 12px;
+            background: var(--accent);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s, width 0.3s, height 0.3s, opacity 0.3s;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-ring {
+            width: 36px; height: 36px;
+            border: 1px solid rgba(232,160,32,0.5);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+            transition: all 0.15s ease;
+        }
+
+        /* ── SCROLL REVEAL ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* ── TYPING CURSOR ── */
+        .typing-text::after {
+            content: '|';
+            color: var(--accent);
+            animation: blink 0.8s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* ── STATS BAR ── */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+            margin: 50px 0 0;
+            animation: fadeUp 1s 0.6s ease both;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: var(--accent);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 6px;
+        }
+
+        /* ── SKILL BARS ── */
+        .skill-bar-wrap {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .skill-bar-item {}
+
+        .skill-bar-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+
+        .skill-bar-track {
+            height: 4px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .skill-bar-fill {
+            height: 100%;
+            background: linear-gradient(to right, var(--accent), var(--accent2));
+            border-radius: 10px;
+            width: 0%;
+            transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* ── GLITCH EFFECT (hero name) ── */
+        .glitch {
+            position: relative;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch::before {
+            color: var(--accent2);
+            animation: glitch1 4s infinite;
+            clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+        }
+
+        .glitch::after {
+            color: #3b82f6;
+            animation: glitch2 4s infinite;
+            clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+        }
+
+        @keyframes glitch1 {
+            0%, 90%, 100% { transform: none; opacity: 0; }
+            92% { transform: translate(-3px, 1px); opacity: 0.7; }
+            94% { transform: translate(3px, -1px); opacity: 0.7; }
+            96% { transform: translate(-1px, 2px); opacity: 0.7; }
+        }
+
+        @keyframes glitch2 {
+            0%, 90%, 100% { transform: none; opacity: 0; }
+            93% { transform: translate(3px, -1px); opacity: 0.7; }
+            95% { transform: translate(-3px, 1px); opacity: 0.7; }
+            97% { transform: translate(2px, -2px); opacity: 0.7; }
+        }
+
+        /* ── FLOATING BADGES ── */
+        .floating-badge {
+            position: absolute;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 10px 16px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--accent);
+            backdrop-filter: blur(10px);
+            animation: float 4s ease-in-out infinite;
+            display: none;
+        }
+
+        @media (min-width: 900px) { .floating-badge { display: block; } }
+
+        .badge-1 { top: 25%; left: 5%; animation-delay: 0s; }
+        .badge-2 { top: 40%; right: 5%; animation-delay: 1.5s; }
+        .badge-3 { bottom: 20%; left: 8%; animation-delay: 0.8s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 768px) {
+            nav { padding: 16px 24px; }
+            .nav-links { display: none; }
+            .hero h1 { font-size: 2rem; }
+            section { padding: 70px 16px; }
+            .grid { grid-template-columns: 1fr; }
+            .stats { gap: 30px; }
+            .cursor, .cursor-ring { display: none; }
         }
     </style>
 </head>
 <body>
 
-    <section class="hero">
+<canvas id="particles"></canvas>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+
+    <nav>
+        <div class="nav-logo">R. L. Mahaliana</div>
+        <ul class="nav-links">
+            <li><a href="#expertise">Expertise</a></li>
+            <li><a href="#realisations">Réalisations</a></li>
+            <li><a href="#humanitaire">Humanitaire</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO -->
+    <div class="hero">
+        <!-- Badges flottants -->
+        <div class="floating-badge badge-1">📚 Enseignant depuis 2019</div>
+        <div class="floating-badge badge-2">🎨 Designer Visuel</div>
+        <div class="floating-badge badge-3">🌍 Mission Mayotte 2025</div>
+
         <div class="hero-content">
-            <div class="profile-border">
-                <img src="photo de profil.png" alt="Mahaliana" class="profile-img">
+            <div class="profile-ring">
+                <img src="photo de profil.png" alt="Ravonjiniaina Mahaliana">
             </div>
-            <div class="role">Enseignant & Chargé de Communication</div>
-            <h1>Ravonjiniaina Longosoa Mahaliana</h1>
-           
+            <div class="hero-tag">Enseignant &amp; Chargé de Communication</div>
+            <h1 class="glitch" data-text="Ravonjiniaina Longosoa Mahaliana">
+                Ravonjiniaina <span>Longosoa</span> Mahaliana
+            </h1>
+            <p class="hero-subtitle">
+                <span class="typing-text" id="typingText"></span>
+            </p>
             <div class="contact-bar">
                 <a href="mailto:mahalianamahaliana@mail.com" class="contact-item">
                     <i class="fas fa-envelope"></i> mahalianamahaliana@mail.com
@@ -175,87 +724,295 @@
                 <a href="tel:+261346131806" class="contact-item">
                     <i class="fas fa-phone"></i> +261 34 61 318 06
                 </a>
-                <a href="https://wa.me/261346131806" class="contact-item" style="color: #25D366;">
-                <i class="fab fa-whatsapp"></i> whatsapp
+                <a href="https://wa.me/261346131806" class="contact-item whatsapp" target="_blank">
+                    <i class="fab fa-whatsapp"></i> WhatsApp
                 </a>
+            </div>
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number" data-target="6">0</div>
+                    <div class="stat-label">Ans d'expérience</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="3">0</div>
+                    <div class="stat-label">Projets majeurs</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="2026">0</div>
+                    <div class="stat-label">Promotion L3</div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-hint">
+            <div class="scroll-line"></div>
+            Défiler
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- EXPERTISE -->
+    <section id="expertise">
+        <div class="section-label reveal">Compétences</div>
+        <div class="section-title reveal">Mon <span>Expertise</span></div>
+        <div class="grid">
+            <div class="card reveal-left">
+                <div class="card-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                <h3>Transmission Stratégique</h3>
+                <ul>
+                    <li>Enseignant d'Histoire-Géographie depuis 2019</li>
+                    <li>Gestion de classes collégiales</li>
+                    <li>Conception de supports illustrés</li>
+                    <li>Accompagnement et gestion personnelle</li>
+                    <li>Gestion de projet</li>
+                    <li>Comité de communication — FIFANAMPIANA MALAGASY</li>
+                </ul>
+                <div class="skill-bar-wrap">
+                    <div class="skill-bar-item">
+                        <div class="skill-bar-label"><span>Pédagogie</span><span>95%</span></div>
+                        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="95"></div></div>
+                    </div>
+                    <div class="skill-bar-item">
+                        <div class="skill-bar-label"><span>Communication</span><span>90%</span></div>
+                        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="90"></div></div>
+                    </div>
+                    <div class="skill-bar-item">
+                        <div class="skill-bar-label"><span>Design Visuel</span><span>80%</span></div>
+                        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="80"></div></div>
+                    </div>
+                    <div class="skill-bar-item">
+                        <div class="skill-bar-label"><span>Gestion de projet</span><span>85%</span></div>
+                        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="85"></div></div>
+                    </div>
+                </div>
+            </div>
+            <div class="card reveal-right">
+                <div class="card-icon"><i class="fas fa-images"></i></div>
+                <h3>L'Enseignement en Images</h3>
+                <div class="mini-grid">
+                    <img src="cours1.jpg" class="mini-img" alt="Cours 1">
+                    <img src="cours2.jpg" class="mini-img" alt="Cours 2">
+                    <img src="cours3.jpg" class="mini-img" alt="Cours 3">
+                </div>
+                <p class="quote">"La communication au service du savoir."</p>
             </div>
         </div>
     </section>
 
-    <div class="container">
-       
-        <h2 class="section-title">Expertise</h2>
-        <div class="grid">
-            <div class="card">
-                <h3>Transmission stratégique</h3>
-                <li>Enseignant d'Histoire-Géographie depuis 2019.</li>
-                    <li>Gestion de classes collégiales</li>
-                    <li>Conception de supports illustrés</li>
-                     <li>Accompagnateur et gestion personnelle</li>
-                      <li>Gestion de projet</li>
-                    <li>comité de communication au sein de l'association FIFANAMPIANA MALAGASY</li>
-                </ul>
-            </div>
-            <div class="card">
-                <h3>L'Enseignement en Images</h3>
-                <div class="mini-grid">
-                    <img src="cours1.jpg" class="mini-img" alt="C1">
-                    <img src="cours2.jpg" class="mini-img" alt="C2">
-                    <img src="cours3.jpg" class="mini-img" alt="C3">
-                </div>
-                <p style="font-style: italic; font-size: 0.9rem; margin-top: 15px; color: var(--accent);">
-                    "La communication au service savoir."
-                </p>
-            </div>
-        </div>
+    <div class="divider"></div>
 
-        <h2 class="section-title">Réalisations & Design</h2>
+    <!-- RÉALISATIONS -->
+    <section id="realisations">
+        <div class="section-label reveal">Portfolio</div>
+        <div class="section-title reveal">Réalisations <span>&amp; Design</span></div>
         <div class="grid">
-            <div class="card">
+            <div class="card reveal-left">
+                <div class="card-icon"><i class="fas fa-paint-brush"></i></div>
                 <h3>Stratégie Visuelle</h3>
-                <p>Affiche officielle pour la foire de solidarité 2025.</p>
-                <img src="affiche.jpg" class="main-img" alt="Affiche">
+                <p style="font-size:0.88rem; color:var(--text-muted); line-height:1.6;">Affiche officielle pour la foire de solidarité 2025.</p>
+                <img src="affiche.jpg" class="main-img" alt="Affiche foire de solidarité">
             </div>
-            <div class="card">
+            <div class="card reveal">
+                <div class="card-icon"><i class="fas fa-bullhorn"></i></div>
                 <h3>Supports Événementiels</h3>
-                <p>Banderoles grand format et appel aux exposants.</p>
+                <p style="font-size:0.88rem; color:var(--text-muted); line-height:1.6;">Banderoles grand format et appel aux exposants.</p>
                 <img src="banderole.jpg" class="main-img" alt="Banderole">
-                <img src="appel aux exposants.jpg" class="main-img" alt="Appel">
+                <img src="appel-aux-exposants.jpg" class="main-img" alt="Appel aux exposants" style="margin-top:10px;">
             </div>
-            <div class="card">
-                <h3>Projet Humanitaire</h3>
-                <p>Mission Mayotte (Déc. 2025): Coordination entre le <strong>Secours Populaire Français</strong> et <strong>FIFANAMPIANA MALAGASY</strong> pour le soutien aux enfants victimes du cyclone Chido à Mayotte.</p>
-                <div class="mini-grid">
-                    <img src="mayotte1.jpg" class="mini-img" alt="M1">
-                    <img src="mayotte2.jpg" class="mini-img" alt="M2">
-                    <img src="mayotte3.jpg" class="mini-img" alt="M3">
-                    <img src="mayotte4.jpg" class="mini-img" alt="M4">
-                    <img src="mayotte5.jpg" class="mini-img" alt="M5">
-                    <img src="mayotte6.jpg" class="mini-img" alt="M6">
+            <div class="pdf-card reveal-right">
+                <div class="pdf-header">
+                    <i class="fas fa-file-pdf"></i>
                 </div>
-                <div class="header-image" style="background-image: linear-gradient(rgba(0,0,0,0.5), url(PLAQUETTE.jpg)">
+                <div class="pdf-body">
+                    <h3>Plaquette Institutionnelle</h3>
+                    <p>Conception de la plaquette de présentation de l'association : mise en page, hiérarchie de l'information et charte graphique.</p>
+                    <a href="plaquette-association.pdf" target="_blank" class="btn">
+                        <i class="fas fa-download"></i> Voir la plaquette
+                    </a>
                 </div>
-            <div class="card card-plaquette" style="padding: 0; overflow: hidden; position: relative;">
-    <div class="header-img" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('plaquette.PNG'); background-size: cover; background-position: center; height: 150px; display: flex; align-items: center; justify-content: center;">
-        <h3 style="color: white; margin: 0; text-transform: uppercase; letter-spacing: 2px; text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">
-            Plaquette Institutionnelle
-        </h3>
-    </div>
-    <div class="card-body" style="padding: 20px; text-align: center;">
-        <p style="font-size: 0.95rem; margin-bottom: 20px;">Conception de la plaquette de présentation de l'association : mise en page, hiérarchie de l'information et charte graphique.</p>
-       
-        <a href="plaquette-association.pdf" target="_blank" style="display: inline-block; padding: 12px 24px; background-color: var(--accent); color: var(--main-bg); text-decoration: none; border-radius: 25px; font-weight: bold; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.2);">
-            <i class="fas fa-file-pdf" style="margin-right: 8px;"></i> Voir la plaquette (PDF)
-        </a>
-    </div>
+            </div>
         </div>
+    </section>
 
-    </div>
+    <div class="divider"></div>
+
+    <!-- HUMANITAIRE -->
+    <section id="humanitaire">
+        <div class="section-label reveal">Engagement</div>
+        <div class="section-title reveal">Projet <span>Humanitaire</span></div>
+        <div class="card reveal" style="max-width:800px;">
+            <div class="card-icon"><i class="fas fa-hands-helping"></i></div>
+            <h3>Mission Mayotte — Décembre 2025</h3>
+            <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.7; margin-bottom:20px;">
+                Coordination entre le <strong style="color:var(--text);">Secours Populaire Français</strong> et <strong style="color:var(--text);">FIFANAMPIANA MALAGASY</strong> pour le soutien aux enfants victimes du cyclone Chido à Mayotte.
+            </p>
+            <div class="mini-grid" style="grid-template-columns: repeat(3,1fr);">
+                <img src="mayotte1.jpg" class="mini-img" alt="Mission Mayotte 1">
+                <img src="mayotte2.jpg" class="mini-img" alt="Mission Mayotte 2">
+                <img src="mayotte3.jpg" class="mini-img" alt="Mission Mayotte 3">
+                <img src="mayotte4.jpg" class="mini-img" alt="Mission Mayotte 4">
+                <img src="mayotte5.jpg" class="mini-img" alt="Mission Mayotte 5">
+                <img src="mayotte6.jpg" class="mini-img" alt="Mission Mayotte 6">
+            </div>
+        </div>
+    </section>
+
+    <script>
+    // ── PARTICLES ──
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    });
+
+    const particles = Array.from({ length: 60 }, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 1.5 + 0.3,
+        dx: (Math.random() - 0.5) * 0.4,
+        dy: (Math.random() - 0.5) * 0.4,
+        alpha: Math.random() * 0.5 + 0.1
+    }));
+
+    function drawParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => {
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(232,160,32,${p.alpha})`;
+            ctx.fill();
+            p.x += p.dx;
+            p.y += p.dy;
+            if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+            if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+        });
+        requestAnimationFrame(drawParticles);
+    }
+    drawParticles();
+
+    // ── CUSTOM CURSOR ──
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+
+    document.addEventListener('mousemove', e => {
+        mx = e.clientX; my = e.clientY;
+        cursor.style.left = mx + 'px';
+        cursor.style.top = my + 'px';
+    });
+
+    function animateRing() {
+        rx += (mx - rx) * 0.12;
+        ry += (my - ry) * 0.12;
+        ring.style.left = rx + 'px';
+        ring.style.top = ry + 'px';
+        requestAnimationFrame(animateRing);
+    }
+    animateRing();
+
+    document.querySelectorAll('a, button, .card, .mini-img').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            cursor.style.width = '20px';
+            cursor.style.height = '20px';
+            ring.style.width = '50px';
+            ring.style.height = '50px';
+            ring.style.borderColor = 'rgba(232,160,32,0.8)';
+        });
+        el.addEventListener('mouseleave', () => {
+            cursor.style.width = '12px';
+            cursor.style.height = '12px';
+            ring.style.width = '36px';
+            ring.style.height = '36px';
+            ring.style.borderColor = 'rgba(232,160,32,0.5)';
+        });
+    });
+
+    // ── TYPING EFFECT ──
+    const phrases = [
+        'Passionné de communication et d\'éducation',
+        'Chargé de communication — FIFANAMPIANA MALAGASY',
+        'Enseignant d\'Histoire-Géographie depuis 2019',
+        'Porteur de projets humanitaires à Mayotte'
+    ];
+    let pi = 0, ci = 0, deleting = false;
+    const typingEl = document.getElementById('typingText');
+
+    function type() {
+        const phrase = phrases[pi];
+        if (!deleting) {
+            typingEl.textContent = phrase.slice(0, ci++);
+            if (ci > phrase.length) { deleting = true; setTimeout(type, 1800); return; }
+        } else {
+            typingEl.textContent = phrase.slice(0, ci--);
+            if (ci < 0) { deleting = false; pi = (pi + 1) % phrases.length; ci = 0; }
+        }
+        setTimeout(type, deleting ? 40 : 65);
+    }
+    type();
+
+    // ── SCROLL REVEAL ──
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach((entry, i) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => entry.target.classList.add('visible'), i * 100);
+                // Skill bars
+                entry.target.querySelectorAll('.skill-bar-fill').forEach(bar => {
+                    bar.style.width = bar.dataset.width + '%';
+                });
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => observer.observe(el));
+
+    // ── COUNTER ANIMATION ──
+    const counterObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const nums = entry.target.querySelectorAll('.stat-number');
+                nums.forEach(el => {
+                    const target = +el.dataset.target;
+                    const duration = target > 100 ? 2000 : 1000;
+                    const step = target / (duration / 16);
+                    let current = 0;
+                    const timer = setInterval(() => {
+                        current += step;
+                        if (current >= target) { el.textContent = target; clearInterval(timer); }
+                        else { el.textContent = Math.floor(current); }
+                    }, 16);
+                });
+                counterObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.stats').forEach(el => counterObserver.observe(el));
+
+    // ── NAV ACTIVE ON SCROLL ──
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(s => {
+            if (window.scrollY >= s.offsetTop - 120) current = s.id;
+        });
+        navLinks.forEach(a => {
+            a.style.color = a.getAttribute('href') === '#' + current
+                ? 'var(--accent)' : '';
+        });
+    });
+    </script>
+
+    <!-- FOOTER -->
 
     <footer>
         <p><strong>Ravonjiniaina Longosoa Mahaliana</strong></p>
-        <p>+261 34 61 318 06 | Antananarivo, Madagascar</p>
-        <p style="font-size: 0.8rem; opacity: 0.5;">Portfolio L3 Communication CNTEMAD &copy; 2026</p>
+        <p>+261 34 61 318 06 &nbsp;|&nbsp; Antananarivo, Madagascar</p>
+        <p class="copy">Portfolio L3 Communication CNTEMAD &copy; 2026</p>
     </footer>
 
 </body>
